@@ -3,7 +3,7 @@
 //2017.3.14  统计top互信息 注释版
 
 import math._
-val inputs=sc.textFile("s3://logs.culiu.org/chuchujie_log/search_category_pv_hourly/20170306/*/part-*")
+val inputs=sc.textFile("*****")
 val temp=inputs.map(x=>x.split("\u0001")).filter(x=>x.length==16).map(x=>(x(4),x(7),x(9),x(6),x(0).toLong))
 val temp2=temp.filter(x=>x._2.split("-").length==4 && x._3.equals("1") && x._4.equals("SEARCH")).map(x=>
 	(x._1,x._2.split("-")(2),x._5)).map(x => (x._1, (x._2, x._3))) 
@@ -30,5 +30,5 @@ val inputttemp = inputtemp.map(y => ((y._1,y._2._1),y._2._2))
   //inputttemp ((Keywords_1,Keywords_2),Mutual_Inf_Score)
 val Result_ = inputttemp.sortBy(x => x._2,false).take(100).map(y => s"${y._1._1}\t${y._1._2}\t${y._2}")
 val output = sc.makeRDD[String](Result_)
-output.repartition(1).saveAsTextFile("s3://forall/liux/test")
+output.repartition(1).saveAsTextFile("*****")
 ```
